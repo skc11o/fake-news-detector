@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fake News Detector</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #f8f9fa);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .main-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+        }
+        .title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #0d6efd;
+            text-align: center;
+        }
+        .subtitle {
+            font-size: 1rem;
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 1.5rem;
+        }
+        .prediction-card {
+            border-radius: 12px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .prediction-title {
+            font-weight: 500;
+            color: #495057;
+        }
+        .prediction-result {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .real { color: green; }
+        .fake { color: red; }
+        .probability { font-size: 0.9rem; color: #6c757d; }
+        .bert-card {
+            background: linear-gradient(135deg, #fff8e1, #fff3cd);
+            border: 2px solid #ffca2c;
+        }
+        .bert-title { font-weight: 700; color: #e69500; }
+    </style>
+</head>
+<body>
+    <div class="main-card">
+        <div class="title">Fake News Detector</div>
+        <div class="subtitle">
+            Paste any news article or URL below.  
+            Our AI models will analyze and predict whether it is <strong>Real</strong> or <strong>Fake</strong>.
+        </div>
+
+        <form method="POST">
+            <!-- Text input -->
+            <div class="mb-3">
+                <label for="news" class="form-label">Paste news article text here:</label>
+                <textarea class="form-control" name="news" id="news" rows="4" placeholder="Paste your news article here...">{{ input_text or "" }}</textarea>
+            </div>
+
+            <!-- URL input -->
+            <div class="mb-3">
+                <label for="url" class="form-label">Or enter article URL:</label>
+                <input type="url" class="form-control" name="url" id="url" placeholder="https://example.com/news-article">
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-primary w-50 me-2">Predict</button>
+                <a href="/" class="btn btn-outline-secondary w-50">Clear</a>
+            </div>
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger mt-3" role="alert">{{ error }}</div>
+        {% endif %}
+
+        {% if prediction %}
+        <div class="mt-4">
+            <h5 class="text-center mb-3">Results:</h5>
+            {% for model, info in prediction.items() %}
+            <div class="prediction-card 
+                {% if model == 'BERT' %}
+                    bert-card
+                {% else %}
+                    border {% if info.label == 'Real' %}border-success{% else %}border-danger{% endif %}
+                {% endif %}">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="prediction-title {% if model == 'BERT' %}bert-title{% endif %}">
+                        {{ model }}
+                    </div>
+                    <div class="text-end">
+                        <div class="prediction-result {% if info.label == 'Real' %}real{% else %}fake{% endif %}">
+                            {{ info.label }}
+                        </div>
+                        <div class="probability">
+                            Confidence: {{ "%.2f"|format(info.prob * 100) }}%
+                        </div>
+                        {% if info.correct is not none %}
+                        <div class="probability">
+                            <!-- Correct: {{ info.correct }} -->
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

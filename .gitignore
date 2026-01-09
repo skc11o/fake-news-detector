@@ -1,0 +1,17 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+.venv/
+
+# macOS files
+.DS_Store
+
+# Large transformer models (NOT deployed)
+bert_model/
+*.zip
+
+# Training dataset
+news_dataset.csv
