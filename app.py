@@ -14,9 +14,9 @@ nb_model = joblib.load("models_final/nb_tfidf.pkl")
 lr_model = joblib.load("models_final/logreg_tfidf.pkl")
 svm_model = joblib.load("models_final/svm_tfidf.pkl")
 
-# Load BERT model
-bert_tokenizer = BertTokenizer.from_pretrained("bert_model")
-bert_model = BertForSequenceClassification.from_pretrained("bert_model")
+# # Load BERT model
+# bert_tokenizer = BertTokenizer.from_pretrained("bert_model")
+# bert_model = BertForSequenceClassification.from_pretrained("bert_model")
 
 
 def extract_text_from_url(url):
@@ -66,18 +66,18 @@ def predict_models(text: str):
             "prob": prob
         }
 
-    # BERT
-    inputs = bert_tokenizer(text, return_tensors="pt", truncation=True, padding=True)
-    with torch.no_grad():
-        outputs = bert_model(**inputs)
-        probs = torch.softmax(outputs.logits, dim=1).cpu().numpy()[0]
-        pred = int(np.argmax(probs))
-        label = "Real" if pred == 1 else "Fake"
+    # # BERT
+    # inputs = bert_tokenizer(text, return_tensors="pt", truncation=True, padding=True)
+    # with torch.no_grad():
+    #     outputs = bert_model(**inputs)
+    #     probs = torch.softmax(outputs.logits, dim=1).cpu().numpy()[0]
+    #     pred = int(np.argmax(probs))
+    #     label = "Real" if pred == 1 else "Fake"
 
-        results["BERT"] = {
-            "label": label,
-            "prob": float(probs[1])
-        }
+    #     results["BERT"] = {
+    #         "label": label,
+    #         "prob": float(probs[1])
+    #     }
 
     return results
 
