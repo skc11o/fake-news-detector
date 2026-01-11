@@ -1,0 +1,9 @@
+flask
+gunicorn
+joblib
+scikit-learn
+numpy
+torch
+transformers
+newspaper3k
+lxml[html_clean]

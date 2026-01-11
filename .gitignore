@@ -1,19 +1,17 @@
-# Python cache
+# Python
 __pycache__/
 *.pyc
-
-# Virtual environments
 venv/
-.venv/
+.env
 
-# macOS files
-.DS_Store
-
-# Large transformer models (NOT deployed)
+# ML / Large files
 bert_model/
 *.zip
-
-# Training dataset
 news_dataset.csv
 
+# OS
+.DS_Store
+
+# Misc
 structure.txt
+
