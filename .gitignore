@@ -15,3 +15,5 @@ bert_model/
 
 # Training dataset
 news_dataset.csv
+
+structure.txt
