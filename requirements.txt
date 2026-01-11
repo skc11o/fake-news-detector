@@ -1,12 +1,7 @@
 flask
 gunicorn
 joblib
-scikit-learn
 numpy
-
-# CPU-only PyTorch
-torch==2.1.2+cpu
-transformers==4.36.2
-
+scikit-learn==1.6.1
 newspaper3k
 lxml[html_clean]
