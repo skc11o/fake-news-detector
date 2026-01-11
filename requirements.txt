@@ -3,7 +3,10 @@ gunicorn
 joblib
 scikit-learn
 numpy
-torch
-transformers
+
+# CPU-only PyTorch
+torch==2.1.2+cpu
+transformers==4.36.2
+
 newspaper3k
 lxml[html_clean]
