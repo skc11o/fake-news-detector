@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import joblib
 from sklearn.exceptions import NotFittedError
 # from transformers import BertTokenizer, BertForSequenceClassification
-import torch
+# import torch
 from newspaper import Article   
 import numpy as np
 
